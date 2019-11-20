@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "lib": ["webworker", "es2019"],
+        "target": "es2019",
+        "sourceMap": true,
+        "allowJs": false,
+        "moduleResolution": "node",
+        "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noImplicitAny": false,
+        "strictNullChecks": false,
+        "suppressImplicitAnyIndexErrors": true,
+        "noUnusedLocals": false,
+        "esModuleInterop": false,
+        "experimentalDecorators": true,
+        "isolatedModules": false,
+        "resolveJsonModule": true,
+        "downlevelIteration": true,
+        "stripInternal": true,
+        "removeComments": false,
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "module": "commonjs"
+    },
+    "include": ["src"],
+    "exclude": ["node_modules"]
+}

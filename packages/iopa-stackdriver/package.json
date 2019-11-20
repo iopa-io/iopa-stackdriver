@@ -1,0 +1,30 @@
+{
+    "name": "iopa-stackdriver",
+    "version": "3.0.0",
+    "description": "Use the IOPA framework for Logging & Error Reporting on Stackdriver without the bloat",
+    "main": "dist/index.js",
+    "types": "src/index.ts",
+    "ts:main": "src/index.ts",
+    "author": "Guy Barnard",
+    "contributors": [
+        "Guy Barnard",
+        "Internet of Protocols Alliance"
+    ],
+    "license": "Apache-2.0",
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/iopa-io/stackdriver.git"
+    },
+    "scripts": {
+        "build": "tsc"
+    },
+    "dependencies": {
+        "async-retry": "^1.2.3",
+        "jsonwebtoken": "8.5.1"
+    },
+    "devDependencies": {
+    }
+}

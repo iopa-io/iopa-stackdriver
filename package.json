@@ -1,0 +1,27 @@
+{
+    "name": "mono-repository-for-iopa-stackdriver",
+    "private": true,
+    "version": "3.0.0",
+    "description": "Use the IOPA framework for Logging & Error Reporting on Stackdriver without the bloat",
+    "author": "iopa <build@iopa.io>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/iopa-io/stackdriver.git"
+    },
+    "dependencies": {},
+    "keywords": [
+        "Stackdriver",
+        "Logging",
+        "Error",
+        "IOPA"
+    ],
+    "engines": {},
+    "scripts": {
+        "build": "lerna run build"
+    },
+    "homepage": "https://iopa.io",
+    "workspaces": [
+        "packages/*"
+    ]
+}
