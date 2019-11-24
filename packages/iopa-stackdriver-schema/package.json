@@ -21,6 +21,7 @@
         "build": "tsc"
     },
     "dependencies": {
+        "portable-fetch": "^3.0.0"
     },
     "devDependencies": {}
 }

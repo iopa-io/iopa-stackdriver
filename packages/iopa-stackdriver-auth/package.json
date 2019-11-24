@@ -4,6 +4,7 @@
     "description": "Simple Stackdriver Client Auth for serverless environments",
     "main": "dist/index.js",
     "types": "src/index.ts",
+    "ts:main": "src/index.ts",
     "author": "iopa <build@iopa.io>",
     "contributors": [
         "Guy Barnard",
