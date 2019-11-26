@@ -1,6 +1,6 @@
 
 declare const fetch: any
-import * as jsonwebtoken from 'jsonwebtoken'
+import { default as jsonwebtoken } from 'iopa-serverless-jsonwebtoken'
 
 export class TokenService {
 
@@ -17,7 +17,7 @@ export class TokenService {
 
        if (token && token.expires_at > Date.now()) { return token.access_token }
 
-       const _jwt = jsonwebtoken.sign(
+       const _jwt = await jsonwebtoken.signAsync(
            {
                iss: process.env.FIREBASE_CLIENT_EMAIL,
                scope: scope,
