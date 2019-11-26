@@ -23,7 +23,7 @@
     },
     "dependencies": {
         "async-retry": "^1.2.3",
-        "jsonwebtoken": "8.5.1"
+        "iopa-serverless-jsonwebtoken": "3.0.0"
     },
     "devDependencies": {
     }
