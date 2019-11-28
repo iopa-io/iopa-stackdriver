@@ -19,7 +19,7 @@ const _log = console.log
 const _error = console.error
 const _warn = console.warn
 const cache = []
-console.log = (x) => { _log(x); cache.push(x)  }
+console.log = (x) => { _log(x); cache.push(x) }
 console.error = (e) => { _error(e); cache.push(e.stack || e) }
 
 export default class StackDriverCapability {
@@ -37,8 +37,9 @@ export default class StackDriverCapability {
             warn: (context: IopaContext, ...args) => {
                 _log(...args)
                 StackDriver.log(args[0], LogEntry.SeverityEnum.WARNING, {}, context)
-           },
-            error: (context: IopaContext, ex: any,  ...optionalArgs) => {
+            },
+            error: (context: IopaContext, ex: any, ...optionalArgs) => {
+
                 if (typeof ex == 'string') {
                     _error(ex)
                     if (/UnhandledPromiseRejectionWarning.*at /s.test(ex)) {
@@ -49,32 +50,29 @@ export default class StackDriverCapability {
                 } else {
                     _error(ex.stack)
                     StackDriver.error(ex, this.app.properties.serverːVersion, context)
-                }            },
+                }
+            },
 
         }
     }
 
     async invoke(context: IopaContext, next: () => Promise<void>) {
 
-        if (process.env.NODE_ENV == 'localhost' || process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'staging') {
-
-            context.log = (message: any, ...args) => {
-                this.app.logging.log(context, message, ...args)
-            }
-
-            context.warn =  (message: any, ...args) => {
-                this.app.logging.warn(context, message, ...args)
-            }
-
-            context.error =  (message: any, ...args) => {
-                this.app.logging.error(context, message, ...args)
-            }
-
-            console.log = context.log
-            console.warn = context.warn
-            console.error = context.error
-
+        context.log = (message: any, ...args) => {
+            this.app.logging.log(context, message, ...args)
         }
+
+        context.warn = (message: any, ...args) => {
+            this.app.logging.warn(context, message, ...args)
+        }
+
+        context.error = (message: any, ...args) => {
+            this.app.logging.error(context, message, ...args)
+        }
+
+        console.log = context.log
+        console.warn = context.warn
+        console.error = context.error
 
         await next()
 
@@ -83,20 +81,18 @@ export default class StackDriverCapability {
         const labels = Array.from(context.iopaːLabels).reduce((obj, [key, value]) => {
             obj[key] = value;
             return obj;
-          }, {});
+        }, {});
 
         cache.forEach(x => context.log(x))
         cache.length = 0
 
-        StackDriver.log({logs: body}, context.response.iopaːStatusCode < 300 ? LogEntry.SeverityEnum.INFO : LogEntry.SeverityEnum.WARNING, labels, context, true)
+        StackDriver.log({ logs: body }, context.response.iopaːStatusCode < 300 ? LogEntry.SeverityEnum.INFO : LogEntry.SeverityEnum.WARNING, labels, context, true)
 
         await StackDriver.flush()
 
-        if (process.env.NODE_ENV == 'localhost' || process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'staging') {
-           console.log = _log
-           console.error = _error
-           console.warn = _warn
-        }
+        console.log = _log
+        console.error = _error
+        console.warn = _warn
 
     }
 }
@@ -109,9 +105,10 @@ class StackDriver {
     public static queue = new BufferedQueue<LogEntry>(StackDriver.writeEntries, { size: 100, flushTimeout: 2000 })
 
     public static log(payload, severity: LogEntry.SeverityEnum, labels, context: IopaContext, isRequest: boolean = false) {
+        if (process.env.NODE_ENV === "localhost") { return }
 
         const logEntry: LogEntry = {
-      //      timestamp: new Date().toISOString(),
+            //      timestamp: new Date().toISOString(),
             textPayload: payload,
             severity,
             labels,
@@ -152,6 +149,7 @@ class StackDriver {
     }
 
     public static async error(ex: Error | string, version: string, context: IopaContext) {
+        if (process.env.NODE_ENV === "localhost") { return }
 
         const jsonPayload: ReportedErrorEvent & { "@type": string } = {
             "@type": "type.googleapis.com/google.devtools.clouderrorreporting.v1beta1.ReportedErrorEvent",
