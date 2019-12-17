@@ -18,8 +18,8 @@
         "url": "https://github.com/iopa-io/iopa-stackdriver.git"
     },
     "scripts": {
-        "build": "tsc",
-        "build:postinstall": "npm run build"
+        "build:schema": "tsc",
+        "build:postinstall": "npm run build:schema"
     },
     "dependencies": {
         "portable-fetch": "^3.0.0"
