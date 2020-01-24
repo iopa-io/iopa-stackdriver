@@ -43,13 +43,13 @@ export default class StackDriverCapability {
                 if (typeof ex == 'string') {
                     _error(ex)
                     if (/UnhandledPromiseRejectionWarning.*at /s.test(ex)) {
-                        StackDriver.error(ex, this.app.properties.serverːVersion, context)
+                        StackDriver.error(ex, this.app.properties.server_Version, context)
                     } else {
                         StackDriver.log(ex, LogEntry.SeverityEnum.ERROR, {}, context)
                     }
                 } else {
                     _error(ex.stack)
-                    StackDriver.error(ex, this.app.properties.serverːVersion, context)
+                    StackDriver.error(ex, this.app.properties.server_Version, context)
                 }
             },
 
@@ -76,9 +76,9 @@ export default class StackDriverCapability {
 
         await next()
 
-        const body = await context.iopaːBody
+        const body = await context.iopa_Body
 
-        const labels = Array.from(context.iopaːLabels).reduce((obj, [key, value]) => {
+        const labels = Array.from(context.iopa_Labels).reduce((obj, [key, value]) => {
             obj[key] = value;
             return obj;
         }, {});
@@ -86,7 +86,7 @@ export default class StackDriverCapability {
         cache.forEach(x => context.log(x))
         cache.length = 0
 
-        StackDriver.log({ logs: body }, context.response.iopaːStatusCode < 300 ? LogEntry.SeverityEnum.INFO : LogEntry.SeverityEnum.WARNING, labels, context, true)
+        StackDriver.log({ logs: body }, context.response.iopa_StatusCode < 300 ? LogEntry.SeverityEnum.INFO : LogEntry.SeverityEnum.WARNING, labels, context, true)
 
         await StackDriver.flush()
 
@@ -112,13 +112,13 @@ class StackDriver {
             textPayload: payload,
             severity,
             labels,
-            trace: `projects/${process.env.FIREBASE_PROJECT_ID}/traces/${context.iopaːSeq}`,
+            trace: `projects/${process.env.FIREBASE_PROJECT_ID}/traces/${context.iopa_Seq}`,
             logName: `projects/${process.env.FIREBASE_PROJECT_ID}/logs/${isRequest ? `${process.env.NODE_ENV}-request` : `${process.env.NODE_ENV}`}`,
             resource: {
                 "labels": {
                     "project_id": process.env.FIREBASE_PROJECT_ID,
-                    "function_name": context.iopaːPath.replace(/^\//, '').replace(/\//g, '-'),
-                    "region": context.serverːSource
+                    "function_name": context.iopa_Path.replace(/^\//, '').replace(/\//g, '-'),
+                    "region": context.server_Source
                 },
                 type: "cloud_function"
             }
@@ -126,12 +126,12 @@ class StackDriver {
 
         if (isRequest) {
             logEntry.httpRequest = {
-                requestMethod: context.iopaːMethod,
-                remoteIp: context.iopaːRemoteAddress,
-                responseSize: `${context.response.iopaːSize}`,
-                requestUrl: context.iopaːOriginalUrl,
-                status: context.response.iopaːStatusCode,
-                latency: (context.serverːgetTimeElapsed() / 1000) + "s"
+                requestMethod: context.iopa_Method,
+                remoteIp: context.iopa_RemoteAddress,
+                responseSize: `${context.response.iopa_Size}`,
+                requestUrl: context.iopa_OriginalUrl,
+                status: context.response.iopa_StatusCode,
+                latency: (context.server_getTimeElapsed() / 1000) + "s"
             }
         }
 
@@ -155,7 +155,7 @@ class StackDriver {
             "@type": "type.googleapis.com/google.devtools.clouderrorreporting.v1beta1.ReportedErrorEvent",
             "message": (typeof ex == 'string') ? ex : ex.stack,
             serviceContext: {
-                "service": context.iopaːPath.replace(/^\//, '').replace(/\//g, '-'),
+                "service": context.iopa_Path.replace(/^\//, '').replace(/\//g, '-'),
                 "version": version,
                 "resourceType": "cloud_function"
             }
@@ -166,13 +166,13 @@ class StackDriver {
             jsonPayload,
             severity: LogEntry.SeverityEnum.ERROR,
             labels: {},
-            trace: `projects/${process.env.FIREBASE_PROJECT_ID}/traces/${context.iopaːSeq}`,
+            trace: `projects/${process.env.FIREBASE_PROJECT_ID}/traces/${context.iopa_Seq}`,
             logName: `projects/${process.env.FIREBASE_PROJECT_ID}/logs/reported-error`,
             resource: {
                 "labels": {
                     "project_id": process.env.FIREBASE_PROJECT_ID,
-                    "function_name": context.iopaːPath.replace(/^\//, '').replace(/\//g, '-'),
-                    "region": context.serverːSource
+                    "function_name": context.iopa_Path.replace(/^\//, '').replace(/\//g, '-'),
+                    "region": context.server_Source
                 },
                 type: "cloud_function"
             }
