@@ -1,27 +1,29 @@
 {
-    "name": "iopa-stackdriver-auth",
-    "version": "3.0.0",
-    "description": "Simple Stackdriver Client Auth for serverless environments",
-    "main": "dist/index.js",
-    "types": "src/index.ts",
-    "ts:main": "src/index.ts",
-    "author": "iopa <build@iopa.io>",
-    "contributors": [
-        "Guy Barnard",
-        "Internet of Protocols Alliance"
-    ],
-    "license": "MIT",
-    "publishConfig": {
-        "access": "public"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/iopa-io/iopa-stackdriver.git"
-    },
-    "scripts": {
-        "build": "tsc"
-    },
-    "dependencies": {
-    },
-    "devDependencies": {}
+  "name": "iopa-stackdriver-auth",
+  "version": "3.0.0",
+  "description": "Simple Stackdriver Client Auth for serverless environments",
+  "main": "dist/index.js",
+  "ts:main": "src/index.ts",
+  "types": "src/index.ts",
+  "author": "iopa <build@iopa.io>",
+  "contributors": [
+    "Guy Barnard",
+    "Internet of Protocols Alliance"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iopa-io/iopa-stackdriver.git"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "iopa-serverless-jsonwebtoken": "^3.0.0"
+  },
+  "devDependencies": {},
+  "peerDependencies": {}
 }

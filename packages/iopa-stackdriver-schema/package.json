@@ -1,28 +1,31 @@
 {
-    "name": "iopa-stackdriver-schema",
-    "version": "3.0.0",
-    "description": "Generated Stackdriver Client API for serverless environments",
-    "main": "dist/index.js",
-    "types": "src/index.ts",
-    "author": "Guy Barnard",
-    "contributors": [
-        "Guy Barnard",
-        "Internet of Protocols Alliance"
-    ],
-    "license": "MIT",
-    "publishConfig": {
-        "access": "public"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/iopa-io/iopa-stackdriver.git"
-    },
-    "scripts": {
-        "build:schema": "tsc",
-        "build:postinstall": "npm run build:schema"
-    },
-    "dependencies": {
-        "portable-fetch": "^3.0.0"
-    },
-    "devDependencies": {}
+  "name": "iopa-stackdriver-schema",
+  "version": "3.0.0",
+  "description": "Generated Stackdriver Client API for serverless environments",
+  "main": "dist/index.js",
+  "ts:main": "src/index.ts",
+  "types": "src/index.ts",
+  "author": "Guy Barnard",
+  "contributors": [
+    "Guy Barnard",
+    "Internet of Protocols Alliance"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iopa-io/iopa-stackdriver.git"
+  },
+  "scripts": {
+    "build:schema": "tsc",
+    "build:postinstall": "npm run build:schema"
+  },
+  "dependencies": {
+    "portable-fetch": "^3.0.0",
+    "url": "^0.11.0"
+  },
+  "devDependencies": {},
+  "peerDependencies": {}
 }
