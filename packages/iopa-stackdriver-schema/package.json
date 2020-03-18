@@ -3,7 +3,6 @@
   "version": "3.0.0",
   "description": "Generated Stackdriver Client API for serverless environments",
   "main": "dist/index.js",
-  "ts:main": "src/index.ts",
   "types": "src/index.ts",
   "author": "Guy Barnard",
   "contributors": [
